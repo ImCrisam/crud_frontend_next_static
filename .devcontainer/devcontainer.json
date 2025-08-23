@@ -10,15 +10,44 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                "imgildev.vscode-next-pack",
+                // Frameworks and languages
+                "pmneo.tsimporter",
+                "imgildev.vscode-nextjs-generator",
+                "blanu.vscode-styled-jsx",
+                "YoavBls.pretty-ts-errors",
+                "christian-kohler.npm-intellisense",
+                "PulkitGangwar.nextjs-snippets",
+                "wix.vscode-import-cost",
+                "mikestead.dotenv",
+                "steoates.autoimport",
+
+                // utilities general web
+                "streetsidesoftware.code-spell-checker",
+                "eamodio.gitlens",
+                "mhutchie.git-graph",
+                "naumovs.color-highlight",
+                "shardulm94.trailing-spaces",
+                "humao.rest-client",
+                "mechatroner.rainbow-csv",
+                "christian-kohler.path-intellisense",
+                "MariusAlchimavicius.json-to-ts",
+                "kisstkondoros.vscode-gutter-preview",
+                "ecmel.vscode-html-css",
+                "vincaslt.highlight-matching-tag",
+                "formulahendry.auto-close-tag",
+                "formulahendry.auto-rename-tag",
+
+
+
+                //Formatting and linting
                 "esbenp.prettier-vscode",
                 "dbaeumer.vscode-eslint",
                 "firsttris.vscode-jest-runner",
-                "ecmel.vscode-html-css",
                 "shd101wyy.markdown-preview-enhanced",
-                "humao.rest-client",
                 "christian-kohler.npm-intellisense",
                 "ms-azuretools.vscode-containers",
+
+                // IA
                 "google.geminicodeassistant",
                 "GitHub.copilot-chat",
                 "GitHub.copilot"
