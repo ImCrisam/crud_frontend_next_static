@@ -1,0 +1,35 @@
+{
+    "name": "node_next devcontainer",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "node_next",
+    "workspaceFolder": "/workspace",
+    "postCreateCommand": "",
+    "postStartCommand": "",
+
+    // "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "imgildev.vscode-next-pack",
+                "esbenp.prettier-vscode",
+                "dbaeumer.vscode-eslint",
+                "firsttris.vscode-jest-runner",
+                "ecmel.vscode-html-css",
+                "shd101wyy.markdown-preview-enhanced",
+                "humao.rest-client",
+                "christian-kohler.npm-intellisense",
+                "ms-azuretools.vscode-containers",
+                "google.geminicodeassistant",
+                "GitHub.copilot-chat",
+                "GitHub.copilot"
+                ]
+            }
+        },
+        "forwardPorts": [
+            4200
+        ]
+
+    }
+
+
+    
