@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   output: 'export',
   basePath: isProd ? pathGithub : '',
   assetPrefix: isProd ? pathGithub+'/' : '',
-
+  trailingSlash: true,
   env: {
     NEXT_PUBLIC_ASSET_PREFIX: isProd ? pathGithub : '',
   },
