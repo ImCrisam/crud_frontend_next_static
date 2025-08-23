@@ -4,7 +4,7 @@
     "service": "node_next",
     "workspaceFolder": "/workspace",
     "postCreateCommand": "",
-    "postStartCommand": "",
+    "postStartCommand": "npm install && npm run dev",
 
     // "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
     "customizations": {
@@ -20,6 +20,8 @@
                 "wix.vscode-import-cost",
                 "mikestead.dotenv",
                 "steoates.autoimport",
+                "vscodeshift.mui-snippets",
+                "DarkPhoenix.split-mui-imports",
 
                 // utilities general web
                 "streetsidesoftware.code-spell-checker",
