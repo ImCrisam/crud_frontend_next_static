@@ -7,7 +7,7 @@ services:
       - ..:/workspace:cached
 
     ports:
-      - "4200:4200"
+      - "3000:3000"
 
 
     command: sleep infinity
