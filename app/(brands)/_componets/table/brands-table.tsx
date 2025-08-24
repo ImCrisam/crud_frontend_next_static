@@ -25,6 +25,7 @@ export function TableBrands() {
   const { handleToggleActive, openDialog } = useBrandsTable()
 
   const { filteredBrands, page, rowsPerPage, setPage, setRowsPerPage, searchTerm } = useBrandsView()
+  
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage)
   }

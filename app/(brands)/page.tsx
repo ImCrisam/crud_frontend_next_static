@@ -17,7 +17,7 @@ import { useBrandsView } from './_hooks/use-brands-view';
 import { TableBrands } from './_componets/table/brands-table';
 export default function BrandsPage() {
 	const { t } = useI18n()
-	const { brands, loading, error, refresh, openDialog } = useBrandsTable()
+	const { brands, loading, refresh, openDialog } = useBrandsTable()
 	const { searchTerm, setSearchTerm } = useBrandsView()
 
 	if (loading && brands.length === 0) {

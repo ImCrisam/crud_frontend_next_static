@@ -1,0 +1,128 @@
+@baseUrl = https://crud-backend-nhc3.onrender.com/api
+# @baseUrl = http://localhost:8000/api
+@id = 2
+
+############################################################
+# 🔹 BRANDS API TESTS
+############################################################
+
+############################################################
+# 📌 Obtener todas las marcas
+############################################################
+GET {{baseUrl}}/brands/
+Accept: application/json
+
+
+############################################################
+# 📌 Crear una marca
+############################################################
+
+### ❌ Intento sin header X-Client-Id (esperado: 403 Forbidden)
+POST {{baseUrl}}/brands/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Nike",
+  "owner": "Juan Perez",
+  "is_active": true
+}
+
+### ✅ Con header X-Client-Id correcto (esperado: 201 Created)
+POST {{baseUrl}}/brands/
+Content-Type: application/json
+Accept: application/json
+X-Client-Id: 42
+
+{
+  "name": "Nike",
+  "owner": "Juan Perez",
+  "is_active": true
+}
+
+
+############################################################
+# 📌 Obtener una marca por ID
+############################################################
+GET {{baseUrl}}/brands/{{id}}/
+Accept: application/json
+
+
+############################################################
+# 📌 Actualizar completamente (PUT)
+############################################################
+
+### ❌ Sin header (esperado: 403 Forbidden)
+PUT {{baseUrl}}/brands/{{id}}/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Nike Actualizado",
+  "owner": "Juan Perez",
+  "is_active": true
+}
+
+### ✅ Con header correcto (esperado: 200 OK)
+PUT {{baseUrl}}/brands/{{id}}/
+Content-Type: application/json
+Accept: application/json
+X-Client-Id: 42
+
+{
+  "name": "Nike Actualizado",
+  "owner": "Juan Perez",
+  "is_active": true
+}
+
+
+############################################################
+# 📌 Actualizar parcialmente (PATCH)
+############################################################
+
+### ❌ Sin header (esperado: 403 Forbidden)
+PATCH {{baseUrl}}/brands/{{id}}/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "owner": "Maria Lopez"
+}
+
+### ✅ Con header correcto (esperado: 200 OK)
+PATCH {{baseUrl}}/brands/{{id}}/
+Content-Type: application/json
+Accept: application/json
+X-Client-Id: 42
+
+{
+  "owner": "Maria Lopez"
+}
+
+
+############################################################
+# 📌 Eliminar una marca (DELETE)
+############################################################
+
+### ❌ Sin header (esperado: 403 Forbidden)
+DELETE {{baseUrl}}/brands/{{id}}/
+Accept: application/json
+
+### ✅ Con header correcto (esperado: 204 No Content)
+DELETE {{baseUrl}}/brands/{{id}}/
+Accept: application/json
+X-Client-Id: 42
+
+
+############################################################
+# 📌 Activar o desactivar (toggle-active)
+############################################################
+
+### ❌ Sin header (esperado: 403 Forbidden)
+POST {{baseUrl}}/brands/{{id}}/toggle-active/
+Accept: application/json
+
+### ✅ Con header correcto (esperado: 200 OK)
+POST {{baseUrl}}/brands/{{id}}/toggle-active/
+Accept: application/json
+X-Client-Id: 42

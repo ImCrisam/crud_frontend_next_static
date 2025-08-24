@@ -1,9 +1,10 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
+import apiService from "../_services/api"
 import { ApiError, Brand, CreateBrandRequest, UpdateBrandRequest } from "../_models/models"
 
-export interface UseBrandsReturn {
+export interface UseBrandsApiReturn {
   brands: Brand[]
   loading: boolean
   error: ApiError | null
@@ -16,7 +17,7 @@ export interface UseBrandsReturn {
   clearError: () => void
 }
 
-export function useBrandsApi(): UseBrandsReturn {
+export function useBrandsApi(): UseBrandsApiReturn {
   const [brands, setBrands] = useState<Brand[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<ApiError | null>(null)
@@ -29,6 +30,8 @@ export function useBrandsApi(): UseBrandsReturn {
     try {
       setLoading(true)
       setError(null)
+      const data = await apiService.getBrands()
+      setBrands(data)
     } catch (err) {
       setError(err as ApiError)
     } finally {
@@ -36,9 +39,12 @@ export function useBrandsApi(): UseBrandsReturn {
     }
   }, [])
 
-  const createBrand = useCallback(async (_brandData: CreateBrandRequest): Promise<Brand> => {
+  const createBrand = useCallback(async (brandData: CreateBrandRequest): Promise<Brand> => {
     try {
       setError(null)
+      const newBrand = await apiService.createBrand(brandData)
+      setBrands((prev) => [...prev, newBrand])
+      return newBrand
     } catch (err) {
       const error = err as ApiError
       setError(error)
@@ -46,9 +52,12 @@ export function useBrandsApi(): UseBrandsReturn {
     }
   }, [])
 
-  const updateBrand = useCallback(async (_id: number, _brandData: CreateBrandRequest): Promise<Brand> => {
+  const updateBrand = useCallback(async (id: number, brandData: CreateBrandRequest): Promise<Brand> => {
     try {
       setError(null)
+      const updatedBrand = await apiService.updateBrand(id, brandData)
+      setBrands((prev) => prev.map((brand) => (brand.id === id ? updatedBrand : brand)))
+      return updatedBrand
     } catch (err) {
       const error = err as ApiError
       setError(error)
@@ -56,9 +65,12 @@ export function useBrandsApi(): UseBrandsReturn {
     }
   }, [])
 
-  const patchBrand = useCallback(async (_id: number, _brandData: UpdateBrandRequest): Promise<Brand> => {
+  const patchBrand = useCallback(async (id: number, brandData: UpdateBrandRequest): Promise<Brand> => {
     try {
       setError(null)
+      const updatedBrand = await apiService.patchBrand(id, brandData)
+      setBrands((prev) => prev.map((brand) => (brand.id === id ? updatedBrand : brand)))
+      return updatedBrand
     } catch (err) {
       const error = err as ApiError
       setError(error)
@@ -66,9 +78,11 @@ export function useBrandsApi(): UseBrandsReturn {
     }
   }, [])
 
-  const deleteBrand = useCallback(async (_id: number): Promise<void> => {
+  const deleteBrand = useCallback(async (id: number): Promise<void> => {
     try {
       setError(null)
+      await apiService.deleteBrand(id)
+      setBrands((prev) => prev.filter((brand) => brand.id !== id))
     } catch (err) {
       const error = err as ApiError
       setError(error)
@@ -76,9 +90,12 @@ export function useBrandsApi(): UseBrandsReturn {
     }
   }, [])
 
-  const toggleBrandActive = useCallback(async (_id: number): Promise<Brand> => {
+  const toggleBrandActive = useCallback(async (id: number): Promise<Brand> => {
     try {
       setError(null)
+      const updatedBrand = await apiService.toggleBrandActive(id)
+      setBrands((prev) => prev.map((brand) => (brand.id === id ? updatedBrand : brand)))
+      return updatedBrand
     } catch (err) {
       const error = err as ApiError
       setError(error)

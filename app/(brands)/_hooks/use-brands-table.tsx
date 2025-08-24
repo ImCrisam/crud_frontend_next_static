@@ -1,7 +1,7 @@
 "use client"
 import { createContext, useContext, useState } from "react"
 import { ApiError, Brand, CreateBrandRequest } from "../_models/models"
-import { useBrandsApi } from "./use-brand-apis"
+import { useBrandsApi } from "./use-brand-api"
 
 
 type DialogType = "create" | "edit" | "delete" | null
@@ -30,9 +30,9 @@ interface TableBrandsContextValue {
   closeSnackbar: () => void
 }
 
-const TableBrandsContext = createContext<TableBrandsContextValue | null>(null)
+const BrandsTableContext = createContext<TableBrandsContextValue | null>(null)
 
-export const TableBrandsProvider = ({ children }: { children: React.ReactNode }) => {
+export const BrandsTableProvider = ({ children }: { children: React.ReactNode }) => {
   const { brands, loading, error, createBrand, updateBrand, deleteBrand, toggleBrandActive, refreshBrands, clearError } =
     useBrandsApi()
 
@@ -83,39 +83,37 @@ export const TableBrandsProvider = ({ children }: { children: React.ReactNode })
   }
 
 
-  const value: TableBrandsContextValue = {
-    // data
-    brands,
-    loading,
-    error,
-
-    // dialog state
-    dialog,
-    openDialog,
-    closeDialog,
-    selectedBrand,
-
-    // actions
-    handleCreate,
-    handleUpdate,
-    handleDelete,
-    handleToggleActive,
-    refresh: refreshBrands,
-
-    // snackbar
-    snackbar,
-    closeSnackbar,
-  }
-
   return (
-    <TableBrandsContext.Provider value={value} >
+    <BrandsTableContext.Provider
+      value={{
+        brands,
+        loading,
+        error,
+
+        // dialog state
+        dialog,
+        openDialog,
+        closeDialog,
+        selectedBrand,
+
+        // actions
+        handleCreate,
+        handleUpdate,
+        handleDelete,
+        handleToggleActive,
+        refresh: refreshBrands,
+
+        // snackbar
+        snackbar,
+        closeSnackbar,
+      }} >
       {children}
-    </TableBrandsContext.Provider>
+    </BrandsTableContext.Provider>
   )
 }
 
 export const useBrandsTable = () => {
-  const ctx = useContext(TableBrandsContext)
+  const ctx = useContext(BrandsTableContext)
   if (!ctx) throw new Error("useTableBrands must be used inside TableBrandsProvider")
   return ctx
 }

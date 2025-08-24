@@ -5,7 +5,7 @@ import { createContext, useContext, useState, useMemo, ReactNode } from "react"
 import { Brand } from "../_models/models"
 import { useBrandsTable } from "./use-brands-table"
 
-interface BrandsTableContextType {
+interface BrandsViewContextType {
   brands: Brand[]
   filteredBrands: Brand[]
   page: number
@@ -17,13 +17,12 @@ interface BrandsTableContextType {
   resetBrands: () => void
 }
 
-const BrandsTableContext = createContext<BrandsTableContextType | undefined>(undefined)
+const BrandsViewContext = createContext<BrandsViewContextType | undefined>(undefined)
 
-export function BrandsTableProvider({ children }: { children: ReactNode }) {
-  const { brands: baseBrands } = useBrandsTable()
+export function BrandsViewProvider({ children }: { children: ReactNode }) {
+  const { brands } = useBrandsTable()
 
-  const [brands, setBrands] = useState<Brand[]>(baseBrands)
-  const [searchTerm, setSearchTerm] = useState("")
+    const [searchTerm, setSearchTerm] = useState("")
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
 
@@ -37,13 +36,12 @@ export function BrandsTableProvider({ children }: { children: ReactNode }) {
   }, [brands, searchTerm, page, rowsPerPage])
 
   const resetBrands = () => {
-    setBrands(baseBrands)
     setSearchTerm("")
     setPage(0)
   }
 
   return (
-    <BrandsTableContext.Provider
+    <BrandsViewContext.Provider
       value={{
         brands,
         filteredBrands,
@@ -57,12 +55,12 @@ export function BrandsTableProvider({ children }: { children: ReactNode }) {
       }}
     >
       {children}
-    </BrandsTableContext.Provider>
+    </BrandsViewContext.Provider>
   )
 }
 
 export function useBrandsView() {
-  const ctx = useContext(BrandsTableContext)
+  const ctx = useContext(BrandsViewContext)
   if (!ctx) throw new Error("useBrandsTableContext must be used within BrandsTableProvider")
   return ctx
 }
