@@ -13,12 +13,13 @@ import Typography from '@mui/material/Typography';
 import { useI18n } from '../_i18n/i18n-provider';
 
 import { useBrandsTable } from './_hooks/use-brands-table';
-import { useBrandsView } from './_hooks/use-brands-view';
+import { useBrandsViewData } from './_hooks/use-brands-view-data';
 import { TableBrands } from './_componets/table/brands-table';
+import BrandDialog from './_componets/brand-dialog';
 export default function BrandsPage() {
 	const { t } = useI18n()
 	const { brands, loading, refresh, openDialog } = useBrandsTable()
-	const { searchTerm, setSearchTerm } = useBrandsView()
+	const { searchTerm, setSearchTerm } = useBrandsViewData()
 
 	if (loading && brands.length === 0) {
 		return (
@@ -33,6 +34,7 @@ export default function BrandsPage() {
 	return (
 		<Box>
 			<Card>
+				<BrandDialog />
 				<CardContent>
 					{/* Header with actions */}
 					<Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>

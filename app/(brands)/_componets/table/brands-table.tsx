@@ -17,15 +17,15 @@ import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import { useI18n } from "../../../_i18n/i18n-provider";
 
 import { useBrandsTable } from "../../_hooks/use-brands-table";
-import { useBrandsView } from "../../_hooks/use-brands-view";
+import { useBrandsViewData } from "../../_hooks/use-brands-view-data";
 
 
 export function TableBrands() {
   const { t } = useI18n()
   const { handleToggleActive, openDialog } = useBrandsTable()
 
-  const { filteredBrands, page, rowsPerPage, setPage, setRowsPerPage, searchTerm } = useBrandsView()
-  
+  const { filteredBrands, page, rowsPerPage, setPage, setRowsPerPage, searchTerm } = useBrandsViewData()
+
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage)
   }

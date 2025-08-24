@@ -59,7 +59,7 @@ export function BrandsViewProvider({ children }: { children: ReactNode }) {
   )
 }
 
-export function useBrandsView() {
+export function useBrandsViewData() {
   const ctx = useContext(BrandsViewContext)
   if (!ctx) throw new Error("useBrandsTableContext must be used within BrandsTableProvider")
   return ctx

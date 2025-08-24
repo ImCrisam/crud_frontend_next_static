@@ -4,7 +4,7 @@ import { useI18n } from '../_i18n/i18n-provider';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { BrandsTableProvider } from './_hooks/use-brands-table';
-import { BrandsViewProvider } from './_hooks/use-brands-view';
+import { BrandsViewProvider } from './_hooks/use-brands-view-data';
 export default function Layout({
   children,
 }: Readonly<{

@@ -69,10 +69,10 @@ export const BrandsTableProvider = ({ children }: { children: React.ReactNode })
   }
 
   const handleDelete = async (brand?: Brand) => {
-    const target = brand ?? selectedBrand
-    if (!target) return
+    if (!brand) return
+    if (!brand.id) return
 
-    await deleteBrand(target.id)
+    await deleteBrand(brand.id)
     showSnackbar("Brand deleted")
     closeDialog()
   }
