@@ -1,6 +1,10 @@
 import { useState } from "react"
-import { Box, TextField, Button, CircularProgress } from "@mui/material"
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 import { Brand, CreateBrandRequest } from "../_models/models"
+import { useI18n } from '../../_i18n/i18n-provider';
 
 export default function BrandForm({
   initialData,
@@ -9,6 +13,7 @@ export default function BrandForm({
   initialData?: Brand
   onSubmit: (data: CreateBrandRequest) => Promise<void>
 }) {
+  const { t } = useI18n()
   const [formData, setFormData] = useState<CreateBrandRequest>({
     name: initialData?.name || "",
     owner: initialData?.owner || "",
@@ -25,18 +30,18 @@ export default function BrandForm({
   return (
     <Box display="flex" flexDirection="column" gap={2} pt={1}>
       <TextField
-        label="Name"
+        label={t("brands.name")}
         value={formData.name}
         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
       />
       <TextField
-        label="Owner"
+        label={t("brands.owner")}
         value={formData.owner}
         onChange={(e) => setFormData({ ...formData, owner: e.target.value })}
       />
       <Box display="flex" justifyContent="flex-end">
-        <Button variant="contained" onClick={handleSubmit} disabled={loading}>
-          {loading ? <CircularProgress size={20} /> : "Save"}
+        <Button variant="contained" onClick={handleSubmit} disabled={loading || !formData.name}>
+          {loading ? <CircularProgress size={20} /> : t("common.save")}
         </Button>
       </Box>
     </Box>
