@@ -43,7 +43,45 @@ export function ThemeProvider({
     setMounted(true)
   }, [])
 
-  
+  const muiTheme = createTheme({
+    palette: {
+      mode: theme === "dark" ? "dark" : "light",
+      primary: {
+        main: brandColors.primary,
+        contrastText: "#ffffff",
+      },
+      secondary: {
+        main: brandColors.secondary,
+        contrastText: "#ffffff",
+      },
+      background: {
+        default: theme === "dark" ? "#121212" : "#ffffff",
+        paper: theme === "dark" ? "#1e1e1e" : "#ffffff",
+      },
+    },
+    typography: {
+      fontFamily: "var(--font-sans)",
+    },
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            textTransform: "none",
+            borderRadius: "8px",
+            fontWeight: 500,
+          },
+        },
+      },
+      MuiCard: {
+        styleOverrides: {
+          root: {
+            borderRadius: "12px",
+            boxShadow: theme === "dark" ? "0 4px 6px -1px rgba(0, 0, 0, 0.3)" : "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+          },
+        },
+      },
+    },
+  })
 
   const value = {
     theme,
