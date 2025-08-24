@@ -6,7 +6,8 @@ import Button from '@mui/material/Button';
 import { useBrandsTable } from "../_hooks/use-brands-table"
 import BrandForm from "./brand-form"
 import { useI18n } from '../../_i18n/i18n-provider';
-
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function BrandDialog() {
   const { t } = useI18n()
@@ -19,6 +20,13 @@ export default function BrandDialog() {
       {dialog === "create" && (
         <>
           <DialogTitle>{t("brands.create")}</DialogTitle>
+                      <IconButton
+              aria-label="close"
+              onClick={closeDialog}
+              sx={{ position: "absolute", right: 8, top: 8 }}
+            >
+              <CloseIcon />
+            </IconButton>
           <DialogContent>
             <BrandForm onSubmit={handleCreate} />
           </DialogContent>
@@ -26,7 +34,7 @@ export default function BrandDialog() {
       )}
       {dialog === "edit" && selectedBrand && (
         <>
-          <DialogTitle>Edit {selectedBrand.name}</DialogTitle>
+          <DialogTitle>{t("common.edit")} {selectedBrand.name}</DialogTitle>
           <DialogContent>
             <BrandForm initialData={selectedBrand} onSubmit={handleUpdate} />
           </DialogContent>
