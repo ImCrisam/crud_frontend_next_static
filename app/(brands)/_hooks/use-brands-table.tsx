@@ -1,7 +1,8 @@
 "use client"
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useState, useEffect } from 'react';
 import { ApiError, Brand, CreateBrandRequest } from "../_models/models"
 import { useBrandsApi } from "./use-brand-api"
+import { useI18n } from '../../_i18n/i18n-provider';
 
 
 type DialogType = "create" | "edit" | "delete" | null
@@ -33,6 +34,8 @@ interface TableBrandsContextValue {
 const BrandsTableContext = createContext<TableBrandsContextValue | null>(null)
 
 export const BrandsTableProvider = ({ children }: { children: React.ReactNode }) => {
+   const { t } = useI18n()
+
   const { brands, loading, error, createBrand, updateBrand, deleteBrand, toggleBrandActive, refreshBrands, clearError } =
     useBrandsApi()
 
@@ -43,6 +46,14 @@ export const BrandsTableProvider = ({ children }: { children: React.ReactNode })
     message: "",
     severity: "success",
   })
+
+
+  useEffect(() => {
+    if (error) {
+      const message = error.message || error.status.toString() || t("brands.error")
+      showSnackbar(message, "error")
+    }
+  }, [error, t])
 
   const showSnackbar = (message: string, severity: "success" | "error" = "success") =>
     setSnackbar({ open: true, message, severity })
@@ -57,14 +68,14 @@ export const BrandsTableProvider = ({ children }: { children: React.ReactNode })
 
   const handleCreate = async (data: CreateBrandRequest) => {
     await createBrand(data)
-    showSnackbar("Brand created")
+    showSnackbar(t("brands.created"))
     closeDialog()
   }
 
   const handleUpdate = async (data: CreateBrandRequest) => {
     if (!selectedBrand) return
     await updateBrand(selectedBrand.id, data)
-    showSnackbar("Brand updated")
+    showSnackbar(t("brands.updated"))
     closeDialog()
   }
 
@@ -73,13 +84,13 @@ export const BrandsTableProvider = ({ children }: { children: React.ReactNode })
     if (!brand.id) return
 
     await deleteBrand(brand.id)
-    showSnackbar("Brand deleted")
+    showSnackbar(t("brands.deleted"))
     closeDialog()
   }
 
   const handleToggleActive = async (brand: Brand) => {
     await toggleBrandActive(brand.id)
-    showSnackbar(brand.is_active ? "Brand deactivated" : "Brand activated")
+    showSnackbar(t("brands.updated"))
   }
 
 

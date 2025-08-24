@@ -16,9 +16,12 @@ import { useBrandsTable } from './_hooks/use-brands-table';
 import { useBrandsViewData } from './_hooks/use-brands-view-data';
 import { TableBrands } from './_componets/table/brands-table';
 import BrandDialog from './_componets/brand-dialog';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+
 export default function BrandsPage() {
 	const { t } = useI18n()
-	const { brands, loading, refresh, openDialog } = useBrandsTable()
+	const { brands, loading, refresh, openDialog, snackbar, closeSnackbar } = useBrandsTable()
 	const { searchTerm, setSearchTerm } = useBrandsViewData()
 
 	if (loading && brands.length === 0) {
@@ -67,6 +70,16 @@ export default function BrandsPage() {
 				</CardContent>
 			</Card>
 			<TableBrands />
+			<Snackbar
+				open={snackbar.open}
+				autoHideDuration={3000}
+				onClose={closeSnackbar}
+				anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+			>
+				<MuiAlert onClose={closeSnackbar} severity={snackbar.severity} elevation={6} variant="filled">
+					{snackbar.message}
+				</MuiAlert>
+			</Snackbar>
 		</Box>
 	)
 }
