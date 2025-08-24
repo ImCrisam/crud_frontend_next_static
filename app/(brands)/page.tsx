@@ -1,41 +1,24 @@
 "use client"
-import { Add, Refresh, Search } from '@mui/icons-material';
-import { Button, CircularProgress, IconButton, InputAdornment, TextField, Tooltip } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import IconButton from '@mui/material/IconButton';
+import TextField from '@mui/material/TextField';
+import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { useI18n } from '../_i18n/i18n-provider';
-import { useState } from 'react';
-import { useBrands } from './_hooks/use-brands';
+
+import { useBrandsTable } from './_hooks/use-brands-table';
+import { useBrandsView } from './_hooks/use-brands-view';
+import { TableBrands } from './_componets/table/brands-table';
 export default function BrandsPage() {
 	const { t } = useI18n()
-
-	const {
-		brands,
-		loading,
-		error,
-		createBrand,
-		updateBrand,
-		deleteBrand,
-		toggleBrandActive,
-		refreshBrands,
-		clearError,
-	} = useBrands()
-
-	const [formErrors, setFormErrors] = useState<Record<string, string>>({})
-	const [searchTerm, setSearchTerm] = useState("")
-
-	const filteredBrands = brands.filter(
-		(brand) =>
-			brand.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-			brand.owner.toLowerCase().includes(searchTerm.toLowerCase()),
-	)
-
-
-	const handleCreateOpen = () => {
-		// Open create brand dialog
-	}
+	const { brands, loading, error, refresh, openDialog } = useBrandsTable()
+	const { searchTerm, setSearchTerm } = useBrandsView()
 
 	if (loading && brands.length === 0) {
 		return (
@@ -58,11 +41,11 @@ export default function BrandsPage() {
 						</Typography>
 						<Box display="flex" gap={1}>
 							<Tooltip title="Refresh">
-								<IconButton onClick={refreshBrands} disabled={loading}>
-									<Refresh />
+								<IconButton onClick={refresh} disabled={loading}>
+									<RefreshIcon />
 								</IconButton>
 							</Tooltip>
-							<Button variant="contained" startIcon={<Add />} onClick={handleCreateOpen} sx={{ textTransform: "none" }}>
+							<Button variant="contained" startIcon={<AddIcon />} onClick={() => { openDialog("create") }} sx={{ textTransform: "none" }}>
 								{t("brands.create")}
 							</Button>
 						</Box>
@@ -81,7 +64,7 @@ export default function BrandsPage() {
 
 				</CardContent>
 			</Card>
-			{/* {children} */}
+			<TableBrands />
 		</Box>
 	)
 }
