@@ -17,7 +17,7 @@ import { useBrandsViewData } from './_hooks/use-brands-view-data';
 import { TableBrands } from './_componets/table/brands-table';
 import BrandDialog from './_componets/brand-dialog';
 import Snackbar from '@mui/material/Snackbar';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import MuiAlert from '@mui/material/Alert';
 
 export default function BrandsPage() {
 	const { t } = useI18n()

@@ -36,7 +36,7 @@ const BrandsTableContext = createContext<TableBrandsContextValue | null>(null)
 export const BrandsTableProvider = ({ children }: { children: React.ReactNode }) => {
    const { t } = useI18n()
 
-  const { brands, loading, error, createBrand, updateBrand, deleteBrand, toggleBrandActive, refreshBrands, clearError } =
+  const { brands, loading, error, createBrand, updateBrand, deleteBrand, toggleBrandActive, refreshBrands } =
     useBrandsApi()
 
   const [dialog, setDialog] = useState<DialogType>(null)
