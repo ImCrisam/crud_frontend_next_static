@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   env: {
     NEXT_PUBLIC_ASSET_PREFIX: isProd ? pathGithub : '',
+    NEXT_PUBLIC_API_URL: isProd
+    ? 'https://crud-backend-nhc3.onrender.com/api'
+    : 'http://localhost:8000/api'
   },
 };
 
