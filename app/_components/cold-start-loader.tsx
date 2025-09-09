@@ -32,33 +32,41 @@ export default function ColdStartLoader() {
         <CardContent sx={{ p: 4, textAlign: "center" }}>
           <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
             <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+              style={{
+                position: "relative",
+                width: 64,
+                height: 64,
+                padding: "8px 13px 13px 13px",
+                borderTop: `5px solid ${theme.palette.primary.main}`,
+                borderRight: `5px`,
+                borderRadius: "50%",
+              }}
+              animate={{ rotate: -360 }}
+              transition={{ duration: 2.5, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
             >
-              <Box
-                sx={{
-                  width: 64,
-                  height: 64,
-                  border: "4px solid #e0e0e0",
-                  borderTop: "4px solid #1976d2",
+              <motion.div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  padding: "11px 7px 11px 11px",
+                  borderRight: `3px solid ${theme.palette.secondary.main}`,
                   borderRadius: "50%",
-                  position: "relative",
                 }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
               >
                 <motion.div
                   style={{
-                    position: "absolute",
-                    inset: 8,
-                    width: 48,
-                    height: 48,
-                    border: "2px solid rgba(224, 224, 224, 0.5)",
-                    borderBottom: "2px solid #42a5f5",
+                    position: "relative",
+                    width: "100%",
+                    height: "100%",
+                    borderLeft: `1px solid ${theme.palette.secondary.main}`,
                     borderRadius: "50%",
                   }}
                   animate={{ rotate: -360 }}
-                  transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                  transition={{ duration: 0.5, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
                 />
-              </Box>
+              </motion.div>
             </motion.div>
           </Box>
 
@@ -115,21 +123,22 @@ export default function ColdStartLoader() {
             </Typography>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
-            <Box sx={{ width: "100%", mb: 2 }}>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
+            <Box sx={{ mb: 2, backgroundColor: "grey.100", marginInline: -32 }}>
               <motion.div
-                animate={{ x: ["-100%", "100%"] }}
+                animate={{ x: ["-150%", "150%"] }}
                 transition={{
                   duration: 2,
                   repeat: Number.POSITIVE_INFINITY,
                   ease: "easeInOut",
+
                 }}
               >
                 <LinearProgress
                   sx={{
                     height: 6,
                     borderRadius: 3,
-                    backgroundColor:"background.paper",
+                    backgroundColor: "grey.300",
                     "& .MuiLinearProgress-bar": {
                       background: theme.palette.primary.gradient,
                       borderRadius: 3,
