@@ -121,7 +121,7 @@ export function ThemeProvider({
   }
 
   return (
-    <ThemeProviderContext.Provider value={value}>
+    <ThemeProviderContext.Provider {...props} value={value}>
       <NextThemeProvider enableSystem storageKey={storageKey}>
         <MuiThemeProvider theme={muiTheme}>
           <CssBaseline />

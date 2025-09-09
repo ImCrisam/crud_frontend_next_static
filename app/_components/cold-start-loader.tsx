@@ -37,48 +37,48 @@ export default function ColdStartLoader() {
                 width: 64,
                 height: 64,
                 padding: "8px 13px 13px 13px",
-                borderTop: `5px solid ${theme.palette.primary.main}`,
+                borderTop: `5px solid    ${theme.palette.primary.main}`,
                 borderRight: `5px`,
                 borderRadius: "50%",
               }}
-              animate={{ rotate: -360 }}
-              transition={{ duration: 2.5, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1.9, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
             >
               <motion.div
                 style={{
                   width: "100%",
                   height: "100%",
                   padding: "11px 7px 11px 11px",
-                  borderRight: `3px solid ${theme.palette.secondary.main}`,
+                  borderRight: `4px dashed ${theme.palette.secondary.main}`,
                   borderRadius: "50%",
                 }}
                 animate={{ rotate: 360 }}
-                transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                transition={{ duration: 1.1, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
               >
                 <motion.div
                   style={{
                     position: "relative",
                     width: "100%",
                     height: "100%",
-                    borderLeft: `1px solid ${theme.palette.secondary.main}`,
+                    borderLeft: `2px dotted   ${theme.palette.secondary.main}`,
                     borderRadius: "50%",
                   }}
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 0.5, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 0.3, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
                 />
               </motion.div>
             </motion.div>
           </Box>
 
           <Box sx={{ display: "flex", justifyContent: "center", gap: 1, mb: 3 }}>
-            {[0, 1, 2].map((i) => (
+            {(["light", "main", "dark"] as const).map((valiant, index) => (
               <motion.div
-                key={i}
+                key={valiant}
                 animate={{ scale: [1, 1.2, 1], opacity: [0.7, 1, 0.7] }}
                 transition={{
                   duration: 1.5,
                   repeat: Number.POSITIVE_INFINITY,
-                  delay: i * 0.2,
+                  delay: index * 0.2,
                   ease: "easeInOut",
                 }}
               >
@@ -86,7 +86,7 @@ export default function ColdStartLoader() {
                   sx={{
                     width: 8,
                     height: 8,
-                    backgroundColor: "#1976d2",
+                    backgroundColor: theme.palette.secondary[valiant],
                     borderRadius: "50%",
                   }}
                 />
@@ -128,7 +128,7 @@ export default function ColdStartLoader() {
               <motion.div
                 animate={{ x: ["-150%", "150%"] }}
                 transition={{
-                  duration: 2,
+                  duration: 2.5,
                   repeat: Number.POSITIVE_INFINITY,
                   ease: "easeInOut",
 
@@ -140,7 +140,7 @@ export default function ColdStartLoader() {
                     borderRadius: 3,
                     backgroundColor: "grey.300",
                     "& .MuiLinearProgress-bar": {
-                      background: theme.palette.primary.gradient,
+                      background: theme.palette.secondary.gradient,
                       borderRadius: 3,
                     },
                   }}
