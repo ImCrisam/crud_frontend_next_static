@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import { ApiResponseError } from "../_models/models";
@@ -19,7 +19,7 @@ class ApiService {
         "Content-Type": "application/json",
         "X-Client-Id": "42",
       },
-      timeout: 10000,
+      timeout: 4000,
     });
 
     // Request interceptor
@@ -45,12 +45,24 @@ class ApiService {
         const apiError: ApiError = {
           message: data?.detail || error.message || "An error occurred",
           status:  error.response?.status || 500,
+          code: error.code,
         };
 
         console.error("[API] Response error:", apiError);
         return Promise.reject(apiError);
       }
     );
+  }
+
+  async getColdStart(): Promise<AxiosResponse<Brand[]>> {
+    try {
+      const response: AxiosResponse<Brand[]> = await this.client.get(
+        "/brands/"
+      );
+      return response;
+    } catch (error) {
+      throw this.handleError(error);
+    }
   }
 
   // Get all brands
