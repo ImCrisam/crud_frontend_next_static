@@ -2,13 +2,23 @@
 
 import type React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
-import { ThemeProvider as MuiThemeProvider, createTheme, CssBaseline } from "@mui/material"
+import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider as NextThemeProvider } from "next-themes"
+import { createTheme, ThemeProvider as MuiThemeProvider} from '@mui/material/styles';
 
 const brandColors = {
-  primary: "#e7324a", // hsl(352, 79%, 55%)
-  secondary: "#f25a9e", // hsl(333, 85%, 65%)
+  primary: {
+    light: "hsl(352, 79%, 65%)", // un poco más claro
+    base:  "hsl(352, 79%, 55%)", // original
+    dark:  "hsl(352, 79%, 40%)", // más profundo
+  },
+  secondary: {
+    light: "hsl(333, 85%, 75%)", // un poco más claro
+    base:  "hsl(333, 85%, 65%)", // original
+    dark:  "hsl(333, 85%, 50%)", // más intenso
+  }
 }
+
 
 type Theme = "dark" | "light" | "system"
 
@@ -47,11 +57,15 @@ export function ThemeProvider({
     palette: {
       mode: theme === "dark" ? "dark" : "light",
       primary: {
-        main: brandColors.primary,
+        main: brandColors.primary.base,
+        light: brandColors.primary.light,
+        dark: brandColors.primary.dark,
         contrastText: "#ffffff",
       },
       secondary: {
-        main: brandColors.secondary,
+        main: brandColors.secondary.base,
+        light: brandColors.secondary.light,
+        dark: brandColors.secondary.dark,
         contrastText: "#ffffff",
       },
       background: {
