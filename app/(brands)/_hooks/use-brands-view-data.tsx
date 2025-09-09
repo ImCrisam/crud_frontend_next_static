@@ -1,4 +1,3 @@
-// use-brands-table-context.tsx
 "use client"
 
 import { createContext, useContext, useState, useMemo, ReactNode } from "react"

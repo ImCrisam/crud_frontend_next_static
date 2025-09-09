@@ -3,12 +3,19 @@
     "dockerComposeFile": "docker-compose.yml",
     "service": "node_next",
     "workspaceFolder": "/workspace",
-    "postCreateCommand": "",
+    "postCreateCommand": "bash .devcontainer/terminal.sh",
     "postStartCommand": "npm install && npm run dev",
-
-    // "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
     "customizations": {
         "vscode": {
+            "settings": {
+				"workbench.colorTheme": "Visual Studio Dark",
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"terminal.integrated.profiles.linux": {
+					"zsh": {
+						"path": "/bin/zsh"
+					}
+				}
+			},
             "extensions": [
                 // Frameworks and languages
                 "pmneo.tsimporter",
@@ -58,7 +65,7 @@
             }
         },
         "forwardPorts": [
-            4200
+            3000
         ]
 
     }
