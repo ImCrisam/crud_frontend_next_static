@@ -5,12 +5,18 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { BrandsTableProvider } from './_hooks/use-brands-table';
 import { BrandsViewProvider } from './_hooks/use-brands-view-data';
+import { useColdStart } from './_hooks/use-cold-start';
+import apiService from './_services/api';
+import ColdStartLoader from '../_components/cold-start-loader';
 export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const { t } = useI18n()
+  const { isReady } = useColdStart(() => apiService.getColdStart());
+
+  children = isReady && children || <ColdStartLoader></ColdStartLoader>
 
   return (
 

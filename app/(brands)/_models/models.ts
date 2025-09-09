@@ -32,6 +32,7 @@ export interface ApiError {
   message: string
   status: number
   details?: unknown
+  code?: string
 }
 
 export interface PaginatedResponse<T> {

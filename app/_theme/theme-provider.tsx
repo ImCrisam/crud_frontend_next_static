@@ -4,18 +4,27 @@ import type React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider as NextThemeProvider } from "next-themes"
-import { createTheme, ThemeProvider as MuiThemeProvider} from '@mui/material/styles';
+import { createTheme, ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 
+
+declare module "@mui/material/styles" {
+  interface PaletteColor {
+    gradient?: string;
+  }
+  interface SimplePaletteColorOptions {
+    gradient?: string;
+  }
+}
 const brandColors = {
   primary: {
     light: "hsl(352, 79%, 65%)", // un poco más claro
-    base:  "hsl(352, 79%, 55%)", // original
-    dark:  "hsl(352, 79%, 40%)", // más profundo
+    base: "hsl(352, 79%, 55%)", // original
+    dark: "hsl(352, 79%, 40%)", // más profundo
   },
   secondary: {
     light: "hsl(333, 85%, 75%)", // un poco más claro
-    base:  "hsl(333, 85%, 65%)", // original
-    dark:  "hsl(333, 85%, 50%)", // más intenso
+    base: "hsl(333, 85%, 65%)", // original
+    dark: "hsl(333, 85%, 50%)", // más intenso
   }
 }
 
@@ -61,12 +70,14 @@ export function ThemeProvider({
         light: brandColors.primary.light,
         dark: brandColors.primary.dark,
         contrastText: "#ffffff",
+        gradient: `linear-gradient(90deg, ${brandColors.primary.light}, ${brandColors.primary.dark})`,
       },
       secondary: {
         main: brandColors.secondary.base,
         light: brandColors.secondary.light,
         dark: brandColors.secondary.dark,
         contrastText: "#ffffff",
+        gradient: `linear-gradient(90deg, ${brandColors.secondary.light}, ${brandColors.secondary.dark})`,
       },
       background: {
         default: theme === "dark" ? "#121212" : "#ffffff",
@@ -110,8 +121,8 @@ export function ThemeProvider({
   }
 
   return (
-    <ThemeProviderContext.Provider {...props} value={value}>
-      <NextThemeProvider attribute="class" defaultTheme={defaultTheme} enableSystem storageKey={storageKey}>
+    <ThemeProviderContext.Provider value={value}>
+      <NextThemeProvider enableSystem storageKey={storageKey}>
         <MuiThemeProvider theme={muiTheme}>
           <CssBaseline />
           {children}
